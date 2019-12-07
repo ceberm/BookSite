@@ -1,0 +1,32 @@
+{
+  "name": "tarea1",
+  "version": "1.0.0",
+  "description": "Primera Tarea de Node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceberm/SingleWebPage.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "website"
+  ],
+  "author": "Cesar B G",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ceberm/SingleWebPage/issues"
+  },
+  "homepage": "https://github.com/ceberm/SingleWebPage#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.1",
+    "request": "^2.88.0"
+  }
+}

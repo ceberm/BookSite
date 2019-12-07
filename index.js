@@ -1,7 +1,7 @@
 var port = '8000';
 var express = require('express');
 var bodyParser = require('body-parser');
-const adminRoutes = require("./routes/admin");
+const Routes = require("./routes/Routes");
 
 var app = express();
 
@@ -20,4 +20,4 @@ var server = app.listen(port, function () {
    console.log("Book app listening at http://%s:%s", host, port)
 })
 
-app.use(adminRoutes);
+app.use(Routes);

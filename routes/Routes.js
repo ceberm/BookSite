@@ -2,15 +2,28 @@ const express = require('express');
 var fs = require("fs");
 var crypto = require('crypto');
 const router = express.Router();
-var length = 0;
-var json;
+var booksLength = 0;
+var usersLength = 0;
+//bookList is the name for books.json
+var bookList;
+var users;
 
 readFiles();
 
+router.get('/Users', function (req, res) {
+    console.log(users.users);
+   res.render('Users', {
+      users: users.users
+   });
+})
+
+router.get('/User', function(req, res) {
+   res.render('User');
+});
+
 router.get('/Books', function (req, res) {
    res.render('Books', {
-      books: json.books,
-      tagline: "lo que sea"
+      books: bookList.books
    });
 })
 
@@ -18,34 +31,70 @@ router.get('/Book', function(req, res) {
    res.render('Book');
 });
 
+router.post('/Users/Created', function(req, res) {
+
+var newUser = {"first_name" : req.body.first_name, "last_name": req.body.last_name, "id" : req.body.id,
+                  "status": req.body.status,"join_date" : req.body.join_date};
+                  
+if(users == null) readFiles();
+   var list = users.users;
+   users.users[usersLength++] = newUser;
+   console.log(users);
+
+      var jsonContent = JSON.stringify(users);
+
+      fs.writeFile("./users.json", jsonContent , 'utf8', function (err) {
+         if (err) {
+            console.log("An error occured while writing JSON Object to File.");
+            return console.log(err);
+         }
+         res.render('created', {
+               currentObject: "user",
+               name: req.body.first_name + ' ' + req.body.last_name
+         });
+      });
+         console.log("JSON file has been saved.");
+  
+});
+
 router.post('/Book/Created', function(req, res) {
 
 var newBook = {"name" : req.body.name, "author": req.body.author, "img" : "11870085.jpg",
                   "publish_date": req.body.publish_date,"description" : req.body.description};
                   
-if(json == null) readFiles();
-   var books = json.books;
-   json.books[length++] = newBook;
-   console.log(json);
+if(bookList == null) readFiles();
+   var books = bookList.books;
+   bookList.books[booksLength++] = newBook;
+   console.log(bookList);
 
       //var jsonObj = JSON.parse(json); 
-      console.log(json);
-      var jsonContent = JSON.stringify(json);
+      console.log(bookList);
+      var jsonContent = JSON.stringify(bookList);
 
       fs.writeFile("./books.json", jsonContent , 'utf8', function (err) {
          if (err) {
             console.log("An error occured while writing JSON Object to File.");
             return console.log(err);
          }
-         res.render('createdBook');
+         res.render('created', {
+               currentObject: "book named",
+               name: req.body.name
+         });
       });
          console.log("JSON file has been saved.");
   
 });
 
+router.get('/Users', function (req, res) {
+   res.render('Users', {
+      users: bookList.books
+   });
+})
+
 router.get('/', function(req,res){
    //console.log(cryptoRandomNumber(0,100));
-   console.log(length);
+   console.log("# of Books " + booksLength);
+   console.log("# of users " + usersLength);
    res.render('index');
    /*
    var drinks = [
@@ -131,9 +180,15 @@ function getLength(data){
 
 function readFiles(){
    fs.readFile( "./" + "books.json", 'utf8', function (err, data) {
-   console.log("STARTING Server:: Reading JSON File");
-      json = JSON.parse(data); 
-      length = getLength(json.books);
+   console.log("STARTING Server:: Reading Books JSON File");
+      bookList = JSON.parse(data); 
+      booksLength = getLength(bookList.books);
+});
+
+fs.readFile( "./" + "users.json", 'utf8', function (err, data) {
+   console.log("STARTING Server:: Reading Users JSON File");
+      users = JSON.parse(data); 
+      usersLength = getLength(users.users);
 });
 }
 

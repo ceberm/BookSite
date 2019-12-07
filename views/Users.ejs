@@ -17,7 +17,7 @@ body    { padding-top:50px; }
         <div class="container">
                 <div class="row">
                     <div class="col">
-                            <h1 class="display-1">List of Books</h1>
+                            <h1 class="display-1">List of Users</h1>
                     </div>
                 </div>
         </div>
@@ -31,7 +31,7 @@ body    { padding-top:50px; }
               <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link" href="/Books">Book List</a>
               <a class="nav-item nav-link" href="/User">Add Users</a>
-              <a class="nav-item nav-link " href="/Users">User List</a>
+              <a class="nav-item nav-link" href="Users">User List</a>
             </div>
           </div>
         </nav>
@@ -47,8 +47,8 @@ body    { padding-top:50px; }
                 <div class="row">
                     <div class="col">
                             <h3>
-                                <% for (var book in books) { %>
-                                    <li><%=  books[book].name; %></li>
+                                <% for (var user in users) { %>
+                                    <li><%=  users[user].first_name +' ' + users[user].last_name %></li>
                                 <% }; %>
                             </h3>
                     </div>

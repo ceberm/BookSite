@@ -44,16 +44,17 @@ body    { padding-top:50px; }
                                 <h3></h3>
                         </div>
                     </div>
-                <div class="row">
-                    <div class="col">
-                            <h3>
-                                <% for (var book in books) { %>
-                                    <li><%=  books[book].name; %></li>
-                                <% }; %>
-                            </h3>
-                    </div>
-                </div>
-                
+                <% for (var book in books) { %>
+                        <div class="row justify-content-md-left">
+                                <div class="col-md-auto">
+                                       <img src='<%=books[book].img; %>' alt="" height="83px" width="55px">
+                                </div>
+                                <div class="col-md-auto">
+                                       <h5><%=  books[book].name; %></h5>
+                                       by <%= books[book].author; %>
+                                </div>
+                        </div>
+                <% }; %>
         </div>
 </main>
 
